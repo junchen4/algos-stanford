@@ -1,5 +1,20 @@
 1) You are given as input an unsorted array of n distinct numbers, where n is a power of 2. Give an algorithm that identifies the second-largest number in the array, and that uses at most n+log2⁡n−2 comparisons.
 
+a. Recursively look for the largest number from the left half of the array and from the right half of the array
+	- for each "level" of recursive call, keep track of the indices (with respect to the subdivided array) of the smaller numbers when compared
+	- when comparing numbers to find the larger one, keep track of/return the index of the larger number. Pass this back "up" the recursive call stack
+
+This step has n/2 + n/4 + ... + 1 = n - 1 comparisons
+
+b. We now know the indices of the "smaller" compared number at each level of the recursive calls. We also know the index of the largest number. Since at each level of recursive call, the index in the new subdivided array is 1/2 of what it was in the original array, we can determine the relative indices of the largest number in the arrays of smaller numbers. There are log2n such arrays of smaller numbers ("levels" of recursive calls), and so for each such subarray, a comparison is made using the index of the largest number with its matching comparison element in order to keep track of the largest comparison number, which is the second largest number in the original array.
+
 2) You are a given a unimodal array of n distinct elements, meaning that its entries are in increasing order up until its maximum element, after which its elements are in decreasing order. Give an algorithm to compute the maximum element that runs in O(log n) time.
 
+For given array arr, if the middle element is > the right adjacent element and the middle element is >= the left adjacent element, then return the middle element. If the middle element is <= the next element, then scan the right subarray. For all other cases, scan the left subarray.
+
 2) You are given a sorted (from smallest to largest) array A of n distinct integers which can be positive, negative, or zero. You want to decide whether or not there is an index i such that A[i] = i. Design the fastest algorithm that you can for solving this problem.
+
+For given array, 
+If the middle element == middle index, return true
+Elsif the middle element < middle index, then we must scan the right subarray with this algo
+Elsif the middle element > middle index, then we must scan the left subarray with this algo
